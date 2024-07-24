@@ -1,0 +1,19 @@
+services:
+  mysql_server:
+    image: mysql/mysql-server:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    expose:
+       - "3306"
+
+  python_app:
+    build: .
+    depends_on:
+      - mysql_server
+    environment:
+      MYSQL_HOST: mysql_server  # set MySQL host to service name
+      MYSQL_ROOT_PASSWORD: test123  # set root password
+      
